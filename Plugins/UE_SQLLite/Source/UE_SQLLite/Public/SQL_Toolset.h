@@ -21,6 +21,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Almyra)
 		static void TestBlueFunction();
 
+	UFUNCTION(BlueprintCallable, Category = Almyra)
+		static void ExecuteSQLCommand(FString dbPath, FString sqlCommand);
+
 
 	UFUNCTION(BlueprintCallable, Category = Almyra)
 		static int SQL_GetInt(FString dbPath, FString sqlCommand);
