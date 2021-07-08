@@ -6,17 +6,17 @@
 
 void FUE_SQLLiteModule::StartupModule()
  {
-
-	try
-	{
-		SQLite::Database db("C:/Users/FatihCanbekli/Desktop/Projects/SQLLitePlugin_UE5/db/example.db3", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
-
-		db.exec("CREATE TABLE contacts ( contact_id INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, email TEXT NOT NULL UNIQUE, phone TEXT NOT NULL UNIQUE );");
-	}
-	catch (std::exception& e)
-	{
-		std::cout << "exception: " << e.what() << std::endl;
-	}
+// 
+// 	try
+// 	{
+// 		SQLite::Database db("C:/Users/FatihCanbekli/Desktop/Projects/SQLLitePlugin_UE5/db/example.db3", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
+// 
+// 		db.exec("CREATE TABLE TestTable ( contact_id INTEGER PRIMARY KEY, first_name TEXT NOT NULL, last_name TEXT NOT NULL, email TEXT NOT NULL UNIQUE, phone TEXT NOT NULL UNIQUE );");
+// 	}
+// 	catch (std::exception& e)
+// 	{
+// 		std::cout << "exception: " << e.what() << std::endl;
+// 	}
 
 
 

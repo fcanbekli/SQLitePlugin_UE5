@@ -7,7 +7,7 @@ void USQL_Toolset::TestBlueFunction()
 {
 
 }
-
+ 
 
 // Create a callback function  
 int callback(void* NotUsed, int argc, char** argv, char** azColName) {
@@ -20,24 +20,48 @@ int callback(void* NotUsed, int argc, char** argv, char** azColName) {
 	return 0;
 }
 
-
-void USQL_Toolset::ExecuteSQLCommand(FString dbPath, FString sqlCommand)
+int USQL_Toolset::SQL_GetInt(FString dbPath, FString sqlCommand)
 {
 	std::string dbPathStr = std::string(TCHAR_TO_UTF8(*dbPath));
 	std::string sqlCommandStr = std::string(TCHAR_TO_UTF8(*sqlCommand));
-	sqlite3* DB;
-	int exit = 0;
-	exit = sqlite3_open(dbPathStr.c_str(), &DB);
+	const char* exception;
+	try
+	{
+		SQLite::Database    db(dbPathStr);
+		std::string value = db.execAndGet(sqlCommandStr);
+		return std::stoi(value);
 
-	char* messaggeError;
-	exit = sqlite3_exec(DB, sqlCommandStr.c_str(), callback, 0, &messaggeError);
-
-	if (exit != SQLITE_OK) {
-		std::cerr << "Error Create Table" << std::endl;
-		sqlite3_free(messaggeError);
 	}
-	else
-		std::cout << "Table created Successfully" << std::endl;
-	sqlite3_close(DB);
+	catch (std::exception& e)
+	{
+		std::cout << "exception: " << e.what() << std::endl;
+		exception = e.what();
+	}
+	FString str(exception);
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *str);
+	return 0;
+
+}
+
+FString USQL_Toolset::SQL_GetString(FString dbPath, FString sqlCommand)
+{
+	std::string dbPathStr = std::string(TCHAR_TO_UTF8(*dbPath));
+	std::string sqlCommandStr = std::string(TCHAR_TO_UTF8(*sqlCommand));
+	const char* exception;
+	try
+	{
+		SQLite::Database    db(dbPathStr);
+		std::string value = db.execAndGet(sqlCommandStr);
+		return FString(value.c_str());
+
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "exception: " << e.what() << std::endl;
+		exception = e.what();
+	}
+	FString str(exception);
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *str);
+	return FString("Error");
 
 }

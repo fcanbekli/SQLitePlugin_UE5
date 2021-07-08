@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "./SQLiteCpp/SQLiteCpp.h"
 #include "UE_SQLLite/Public/SQLiteCpp/sqlite3.h"
 
 #include "SQL_Toolset.generated.h"
@@ -22,6 +23,10 @@ public:
 
 
 	UFUNCTION(BlueprintCallable, Category = Almyra)
-		static void ExecuteSQLCommand(FString dbPath, FString sqlCommand);
+		static int SQL_GetInt(FString dbPath, FString sqlCommand);
+
+	UFUNCTION(BlueprintCallable, Category = Almyra)
+		static FString SQL_GetString(FString dbPath, FString sqlCommand);
+
 	
 };
